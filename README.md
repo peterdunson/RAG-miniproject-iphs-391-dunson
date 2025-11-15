@@ -77,7 +77,7 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 │                     RAG Security Pipeline                    │
 └─────────────────────────────────────────────────────────────┘
 
-📄 Documents (~80 academic papers, ~200 pages, ~150k tokens)
+📄 Documents (~80 academic papers, ~1000 pages)
     ↓
 🔪 Chunking (heading-based, max 512 tokens per chunk)
     ↓
@@ -115,7 +115,7 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 - ~80 academic papers (2023–2025) on RAG security topics
 - arXiv, ACL Anthology, ACM Digital Library
 - Formats: PDFs converted to `.txt` and `.md`
-- Size: ~200 pages (~150k usable tokens)
+- Size: ~1000 pages
 
 **Preprocessing:**
 - Removed boilerplate, references, licenses

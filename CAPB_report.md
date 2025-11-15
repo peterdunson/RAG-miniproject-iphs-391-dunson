@@ -58,7 +58,7 @@ context:
 * **Sources:** ~80 academic papers (2023–2025) on RAG security, robustness, privacy, fairness, explainability, provenance, and LLM trustworthiness
 * **Repositories:** arXiv, ACL Anthology, ACM Digital Library
 * **Formats:** PDFs to be converted to `.txt` and `.md`
-* **Size:** ~200 pages (~150k usable tokens)
+* **Size:** ~1000 pages
 * **Planned Preprocessing steps:**
 
   * Remove boilerplate, references, licenses
@@ -79,7 +79,7 @@ context:
 data_constraints:
   sources: ["arXiv security papers", "ACL Anthology", "ACM Digital Library"]
   formats: ["pdf", "txt", "md"]
-  size: "200 pages (approx. 80 papers)"
+  size: "1000 pages"
   local_only: true
   cost_limit: "free/OSS"
   latency_target: 5

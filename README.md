@@ -2,13 +2,13 @@
 
 # 🔐 RAG Security Research Assistant
 
-### *A Privacy-Preserving, Locally-Deployed RAG System for AI Security Research*
+### *A Proposed Privacy-Preserving, Locally-Deployed RAG System for AI Security Research*
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![RAG](https://img.shields.io/badge/RAG-Retrieval%20Augmented%20Generation-orange.svg)]()
 [![Security](https://img.shields.io/badge/Focus-AI%20Security-red.svg)]()
 
-[Overview](#-overview) • [Features](#-key-features) • [Architecture](#-architecture) • [Results](#-evaluation-results) • [Documentation](#-documentation)
+[Overview](#-overview) • [Features](#-key-features) • [Architecture](#-architecture) • [Evaluation Plan](#-evaluation-plan--expected-results) • [Documentation](#-documentation)
 
 ---
 
@@ -16,7 +16,7 @@
 
 ## 🎯 Overview
 
-This project implements a **secure, production-ready RAG (Retrieval-Augmented Generation) system** specifically designed for AI security research. Built for IPHS 391, it demonstrates best practices for trustworthy AI systems while addressing critical vulnerabilities in modern RAG pipelines.
+This project **proposes** a **secure RAG (Retrieval-Augmented Generation) system** specifically designed for AI security research. Built for IPHS 391, it will demonstrate best practices for trustworthy AI systems while addressing critical vulnerabilities in modern RAG pipelines.
 
 ### **The Problem**
 
@@ -29,7 +29,7 @@ Current RAG systems face serious security challenges:
 
 ### **The Solution**
 
-A locally-deployed RAG assistant focused on summarizing and explaining academic work on *Security and Guardrails for RAG Systems* with:
+A planned locally-deployed RAG assistant focused on summarizing and explaining academic work on *Security and Guardrails for RAG Systems* with:
 - ✅ 100% offline operation with no external API calls
 - ✅ Enterprise-grade security guardrails
 - ✅ Accurate, cited responses with provenance tracking
@@ -52,15 +52,15 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 
 ---
 
-## ✨ Key Features
+## ✨ Planned Key Features
 
 ### **🔒 Security-First Design**
 - **NeMo Guardrails** for blocking jailbreak patterns and checking for poisoning indicators
 - **Local-only processing** - no data leaves your machine
-- **Citation verification** - every answer includes source title + paragraph ID
+- **Citation verification** - every answer will include source title + paragraph ID
 - **Rejecting unclear citations** automatically
 
-### **🛠️ Technical Stack**
+### **🛠️ Proposed Technical Stack**
 - **Embeddings:** `sentence-transformers/all-MiniLM-L6-v2` (local HF Transformers)
 - **Vector DB:** Chroma (persistent storage with metadata filtering)
 - **Retrieval:** Dense vector search (top-5 cosine similarity)
@@ -70,7 +70,7 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Proposed Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -100,8 +100,8 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 
 ### **Component Selection**
 
-| Component | Choice | Alternative | Why Selected |
-|-----------|--------|-------------|--------------|
+| Component | Proposed Choice | Alternative | Why Selected |
+|-----------|-----------------|-------------|--------------|
 | **Vector DB** | ✅ Chroma | FAISS | Easier persistent storage + metadata queries |
 | **Embeddings** | ✅ MiniLM | OpenAI Ada-002 | Offline, OSS, high cosine fidelity |
 | **LLM** | ✅ Mistral 7B | GPT-4 | Fast, local, strong factuality |
@@ -109,19 +109,19 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 
 ---
 
-## 📊 Data & Corpus
+## 📊 Planned Data & Corpus
 
 **Sources:**
 - ~80 academic papers (2023–2025) on RAG security topics
 - arXiv, ACL Anthology, ACM Digital Library
-- Formats: PDFs converted to `.txt` and `.md`
+- Formats: PDFs to be converted to `.txt` and `.md`
 - Size: ~1000 pages
 
-**Preprocessing:**
-- Removed boilerplate, references, licenses
-- Normalized section headers for chunking
-- Deduplicated abstracts and introductions
-- Injected citation tags (`[AuthorYear-Section#]`) for evaluation tracing
+**Planned Preprocessing:**
+- Remove boilerplate, references, licenses
+- Normalize section headers for chunking
+- Deduplicate abstracts and introductions
+- Inject citation tags (`[AuthorYear-Section#]`) for evaluation tracing
 
 **Topics Covered:**
 - RAG security and robustness
@@ -138,39 +138,39 @@ A locally-deployed RAG assistant focused on summarizing and explaining academic 
 
 ---
 
-## 📈 Evaluation Plan & Baseline Results
+## 📈 Evaluation Plan & Expected Results
 
 **Evaluation Design:**
 - **Test Set:** 15 curated questions across major RAG security areas (privacy preservation, robustness against adversarial documents, detection of data poisoning, fairness & bias mitigation, explainability and provenance tracing, watermarking & accountability)
 - **Approach:** Vector-only retrieval with NeMo guardrails
 
-**Baseline Example Results:**
+**Expected Baseline Results (EXAMPLE):**
 
-| Metric | Baseline Result |
-|--------|-----------------|
-| **Correct Answers** | 13/15 (86.7%) |
-| **With Citations** | 12/15 (80%) |
-| **Avg Latency** | 3.4 seconds |
+| Metric | Expected Baseline |
+|--------|-------------------|
+| **Correct Answers** | ~13/15 (86.7%) |
+| **With Citations** | ~12/15 (80%) |
+| **Avg Latency** | ~3.4 seconds |
 
-✅ **Example baseline meets success criteria:**
-- ✅ ≥85% factual accuracy achieved
-- ✅ ≤5s latency requirement exceeded
+✅ **Expected baseline should meet success criteria:**
+- ✅ ≥85% factual accuracy
+- ✅ ≤5s latency requirement
 - ✅ High citation completeness
 - ✅ Strong reliability on single-document questions
 
-**Notes:** The baseline approach shows high factuality and reliability. Performance decreases slightly on multi-document questions where answers span conflicting sections, suggesting the value of adding hybrid retrieval or cross-document reranking for future iterations.
+**Notes:** The baseline approach is expected to show high factuality and reliability. Performance may decrease slightly on multi-document questions where answers span conflicting sections, suggesting the value of adding hybrid retrieval or cross-document reranking for future iterations.
 
 ---
 
-## ⚠️ Edge Cases & Limitations
+## ⚠️ Anticipated Edge Cases & Limitations
 
-**Known Edge Cases:**
+**Anticipated Edge Cases:**
 - Very long PDFs exceeding embedding window
 - Acronym-heavy technical passages (e.g., KG-RAG, C-RAG, RAG-Ex)
 - Contradictory claims from multiple sources
 - Similar paragraphs across papers (retrieval confusion)
 
-**Risks:**
+**Identified Risks:**
 - Poisoned text embedded in retrieved chunks
 - Outdated or retracted papers introducing factual drift
 - Adversarial prompts circumventing guardrails
@@ -192,13 +192,13 @@ Planned improvements to enhance the system:
 ## 📚 Documentation
 
 For detailed technical documentation, see:
-- **[CAPB_report.md](CAPB_report.md)** - Complete project report with architecture details, evaluation results, and analysis
+- **[CAPB_report.md](CAPB_report.md)** - Complete project proposal with architecture details, evaluation plan, and analysis
 
 ---
 
 ## 📖 References
 
-Key papers that informed this implementation:
+Key papers informing this implementation:
 
 - *Towards Trustworthy Retrieval-Augmented Generation for Large Language Models: A Survey.* arXiv, 2025
 - *RobustRAG: Certifiably Robust Retrieval-Augmented Generation.* arXiv, 2024

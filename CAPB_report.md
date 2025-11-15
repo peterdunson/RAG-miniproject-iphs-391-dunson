@@ -16,7 +16,7 @@ Retrieval-Augmented Generation (RAG) systems are increasingly used in research, 
 * **Incorrect or hallucinated citations**
 * **Unverified retrieval pipelines** that return stale or contradictory information
 
-This project implements a **RAG-based AI Security Research Assistant** focused on summarizing and explaining academic work on *Security and Guardrails for RAG Systems*. The system demonstrates secure RAG design principles—local embeddings, robust retrieval, guardrail-based filtering, and citation enforcement—to produce accurate, trustworthy outputs suitable for academic and enterprise use.
+This project **proposes** a **RAG-based AI Security Research Assistant** focused on summarizing and explaining academic work on *Security and Guardrails for RAG Systems*. The planned system will demonstrate secure RAG design principles—local embeddings, robust retrieval, guardrail-based filtering, and citation enforcement—to produce accurate, trustworthy outputs suitable for academic and enterprise use.
 
 ## **1.2 Primary Use Case**
 
@@ -53,18 +53,18 @@ context:
 
 # **2. Data & Constraints**
 
-## **2.1 Corpus Details**
+## **2.1 Planned Corpus Details**
 
 * **Sources:** ~80 academic papers (2023–2025) on RAG security, robustness, privacy, fairness, explainability, provenance, and LLM trustworthiness
 * **Repositories:** arXiv, ACL Anthology, ACM Digital Library
-* **Formats:** PDFs converted to `.txt` and `.md`
+* **Formats:** PDFs to be converted to `.txt` and `.md`
 * **Size:** ~200 pages (~150k usable tokens)
-* **Preprocessing steps:**
+* **Planned Preprocessing steps:**
 
-  * Removed boilerplate, references, licenses
-  * Normalized section headers for chunking
-  * Deduplicated abstracts and introductions
-  * Injected citation tags (`[AuthorYear-Section#]`) for evaluation tracing
+  * Remove boilerplate, references, licenses
+  * Normalize section headers for chunking
+  * Deduplicate abstracts and introductions
+  * Inject citation tags (`[AuthorYear-Section#]`) for evaluation tracing
 
 ## **2.2 Constraints**
 
@@ -88,13 +88,13 @@ data_constraints:
 
 ---
 
-# **3. RAG Architecture (MVP)**
+# **3. Proposed RAG Architecture (MVP)**
 
 ## **3.1 Pipeline Overview**
 
 **Ingestion → Chunking → Embedding → Vector DB → Retrieval → LLM → Guardrails → Answer → Citation**
 
-## **3.2 Core Design Choices**
+## **3.2 Planned Core Design Choices**
 
 * **Chunking:** Heading-based, max 512 tokens per chunk
 * **Embeddings:** `sentence-transformers/all-MiniLM-L6-v2` via local HF Transformers
@@ -106,7 +106,7 @@ data_constraints:
   * blocking jailbreak pattern injections
   * rejecting queries with unclear citations
   * checking retrieved chunks for poisoning indicators
-* **Citations:** Each answer includes source title + paragraph ID
+* **Citations:** Each answer will include source title + paragraph ID
 
 ### **YAML Architecture**
 
@@ -126,12 +126,12 @@ architecture_mvp:
 
 # **4. Component Alternatives (Mini-Bakeoff)**
 
-| Component      | Option A       | Option B        | Criteria                          | Selected     | Why                                          |
-| -------------- | -------------- | --------------- | --------------------------------- | ------------ | -------------------------------------------- |
-| **Vector DB**  | FAISS          | Chroma          | Local persistence, filtering      | ✅ Chroma     | Easier persistent storage + metadata queries |
-| **Embeddings** | OpenAI Ada-002 | MiniLM          | Cost, privacy                     | ✅ MiniLM     | Offline, OSS, high cosine fidelity           |
-| **LLM**        | GPT-4          | Mistral 7B      | Latency, privacy, reproducibility | ✅ Mistral 7B | Fast, local, strong factuality               |
-| **Guardrails** | Llama Guard    | NeMo Guardrails | Context policies                  | ✅ NeMo       | Native RAG-aware filtering                   |
+| Component      | Option A       | Option B        | Criteria                          | Proposed Selection | Why                                          |
+| -------------- | -------------- | --------------- | --------------------------------- | ------------------ | -------------------------------------------- |
+| **Vector DB**  | FAISS          | Chroma          | Local persistence, filtering      | ✅ Chroma          | Easier persistent storage + metadata queries |
+| **Embeddings** | OpenAI Ada-002 | MiniLM          | Cost, privacy                     | ✅ MiniLM          | Offline, OSS, high cosine fidelity           |
+| **LLM**        | GPT-4          | Mistral 7B      | Latency, privacy, reproducibility | ✅ Mistral 7B      | Fast, local, strong factuality               |
+| **Guardrails** | Llama Guard    | NeMo Guardrails | Context policies                  | ✅ NeMo            | Native RAG-aware filtering                   |
 
 ### **YAML Component Selection**
 
@@ -153,9 +153,9 @@ component_selection:
 
 ---
 
-# **5. Evaluation Plan & Results**
+# **5. Evaluation Plan & Expected Results**
 
-## **5.1 Test Set**
+## **5.1 Planned Test Set**
 
 15 curated questions across major RAG security areas:
 
@@ -172,47 +172,47 @@ component_selection:
 * **% Cited Answers**
 * **Average Latency (s/query)**
 
-### **Evaluation Results**
+### **Expected Baseline Results (EXAMPLE)**
 
 ```yaml
 evaluation:
   questions: 15
   baseline:
     approach: "vector-only retrieval with NeMo guardrails"
-    correct: 13
-    with_citations: 12
-    avg_latency: 3.4
-  notes: "High factuality and reliability; performance decreases slightly on multi-document questions."
+    expected_correct: 13
+    expected_with_citations: 12
+    expected_avg_latency: 3.4
+  notes: "Anticipating high factuality and reliability; performance may decrease slightly on multi-document questions."
 ```
 
-### **Interpretation**
+### **Expected Interpretation (EXAMPLE)**
 
-The system achieved:
+The system is expected to achieve:
 
-* **86.7% factual accuracy**
-* **80% citation completeness**
-* **3.4s average latency**, comfortably under the 5s requirement
+* **~86.7% factual accuracy**
+* **~80% citation completeness**
+* **~3.4s average latency**, comfortably under the 5s requirement
 
-Most errors occurred on multi-document questions where answers spanned conflicting sections. This suggests adding hybrid retrieval or cross-document reranking for future iterations.
+Most errors are anticipated on multi-document questions where answers span conflicting sections. This suggests the value of adding hybrid retrieval or cross-document reranking for future iterations.
 
 ---
 
 # **6. Risks, Edge Cases & Future Work**
 
-### **Edge Cases**
+### **Anticipated Edge Cases**
 
 * Very long PDFs exceeding embedding window
 * Acronym-heavy technical passages (e.g., KG-RAG, C-RAG, RAG-Ex)
 * Contradictory claims from multiple sources
 * Similar paragraphs across papers (retrieval confusion)
 
-### **Risks**
+### **Identified Risks**
 
 * Poisoned text embedded in retrieved chunks
 * Outdated or retracted papers introducing factual drift
 * Adversarial prompts circumventing guardrails
 
-### **Future Work**
+### **Planned Future Work**
 
 * Hybrid retrieval (**BM25 + dense**)
 * Reranking with **Cohere** or **ColBERT v2**
@@ -245,7 +245,7 @@ improvements:
 
 # **Summary**
 
-This project builds a **secure, locally deployed RAG assistant** designed for research on RAG security and guardrails. It addresses real-world vulnerabilities—prompt injection, poisoning, privacy leakage, and hallucinations—using a fully offline pipeline. The system demonstrates strong factual accuracy, fast latency, reliable citations, and a clear roadmap for scaling to enterprise-grade RAG safety research.
+This project proposes a **secure, locally deployed RAG assistant** designed for research on RAG security and guardrails. It will address real-world vulnerabilities—prompt injection, poisoning, privacy leakage, and hallucinations—using a fully offline pipeline. The system is designed to demonstrate strong factual accuracy, fast latency, reliable citations, and a clear roadmap for scaling to enterprise-grade RAG safety research.
 
 ---
 
